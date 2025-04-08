@@ -1,2 +1,2 @@
 # memberui
-Member React JS UI
+Member React JS UI App
