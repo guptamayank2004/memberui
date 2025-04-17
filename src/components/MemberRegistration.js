@@ -26,10 +26,24 @@ const MemberRegistration = () => {
         if (response.ok) {
           alert('Member registered successfully!');
           setNewMember({ name: '', email: '', phoneNumber: '' });
-          setMembers([...members, { ...newMember, id: members.length + 1 }]);
+          try {
+            const fetchResponse = await fetch('http://localhost:8080/memberapp/members');
+            if (fetchResponse.ok) {
+              const data = await fetchResponse.json();
+              setMembers(data);
+            } else {
+              alert('Failed to fetch members.');
+            }
+          } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while fetching members.');
+          }
+          //setMembers([...members, { ...newMember, id: members.length + 1 }]);
           setMessages({ type: 'success', text: 'Member registered successfully!' });
         } else {
-          alert('Failed to register member.' + response.error);
+          const errorData = await response.json();
+          console.error('Error:', errorData);
+          alert('Failed to register member. Response Code: ' + response.status);
         }
       } catch (error) {
         console.error('Error:', error);
