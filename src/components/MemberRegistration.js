@@ -11,17 +11,6 @@ const MemberRegistration = () => {
     setNewMember({ ...newMember, [id]: value });
   };
 
-  const registerMember = () => {
-    // Simulate registration logic
-    if (newMember.name && newMember.email && newMember.phoneNumber) {
-      setMembers([...members, { ...newMember, id: members.length + 1 }]);
-      setMessages({ type: 'success', text: 'Member registered successfully!' });
-      setNewMember({ name: '', email: '', phoneNumber: '' });
-    } else {
-      setMessages({ type: 'error', text: 'All fields are required!' });
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (newMember.name && newMember.email && newMember.phoneNumber)
@@ -150,8 +139,8 @@ const MemberRegistration = () => {
                 <td>{member.email}</td>
                 <td>{member.phoneNumber}</td>
                 <td>
-                  <a href={`http://localhost:8080/memberapp/members/${member.id}`}>
-                    /memberapp/members/{member.id}
+                  <a href={`http://localhost:8080/memberapp/members?name=${member.name}`}>
+                    /memberapp/members?name={member.name}
                   </a>
                 </td>
               </tr>
